@@ -1,16 +1,21 @@
 
-DataTrade:([] Date:`date$(); Open:`float$(); High:`float$(); Low:`float$(); Close:`float$(); Volume:`int$();)
+DataTrade:([] Open:`float$(); High:`float$(); Low:`float$(); adjClose:`float$(); Volume:`int$())
 
-.CSVconverter:{ [filename; symbol]
-                //read rawData
-                rawDate: read0: filename;
-                header: first rawData;
-                data: ("DFFFFI", enlist ",") 0: rawData;
-                data: update Sym:symbol from data;
-                data: update Volume:`int$Volume from data;
-                :`DataTrade insert data;
+
+.CSVconverter{[x]
+              file_path: raze string `x, ".csv";
+              file: `$file_path;
+              rawData: read0 file;
+              header : first rawData;
+              data: ("FFFFI"; enlist ",") 0: rawData;
+              data: update Volume:`int$Volume from data;
+              `DataTrade insert data;
+
+  
 
 }
+
+
 
 
 
